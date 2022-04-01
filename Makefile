@@ -1,6 +1,26 @@
+OBJS	= Image.o ImageProcessing.o  main.o
+SOURCE	= Image.cpp ImageProcessing.cpp
+HEADER	=Image.h ImageProcessing.h
+OUT	= main
+CC	 = g++
+FLAGS	 = -g -c -Wall
+LFLAGS	 =
 
-run:
-	g++ -g Image.o main.o -o main
+all: clean $(OBJS)
+	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
 
-Image.o: Image.cpp
-	g++ -g Image.cpp
+Image.o:Image.cpp
+	$(CC) $(FLAGS) Image.cpp
+
+ImageProcessing.o:ImageProcessing.cpp
+	$(CC) $(FLAGS) ImageProcessing.cpp
+
+main.o: main.cpp
+	$(CC) $(FLAGS) main.cpp
+
+clean:
+	rm -f $(OBJS) $(OUT) *.gch
+
+
+smt.o:smt.cpp
+	$(CC) $(FLAGS) smt.cpp

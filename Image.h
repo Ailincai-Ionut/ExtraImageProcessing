@@ -33,8 +33,8 @@ public:
 
   Image &operator=(const Image &img);
 
-  inline unsigned char getHeight() const { return height; };
-  inline unsigned char getWidth() const { return width; };
+  inline int getHeight() const { return height; };
+  inline int getWidth() const { return width; };
   inline Size size() const { return Size(height, width); };
 
   unsigned char &at(unsigned int x, unsigned int y) const;
@@ -55,12 +55,18 @@ public:
   Image operator+(const Image &img);
   Image operator-(const Image &img);
   Image operator*(const Image &img);
+  Image operator+(const unsigned char scalar);
+  Image operator-(const unsigned char scalar);
+  Image operator*(const unsigned char scalar);
 
   friend std::ostream &operator<<(std::ostream &out, const Image &img);
 
+  static Image zeros(unsigned int width, unsigned int height);
+  static Image ones(unsigned int width, unsigned int height);
+
 private:
-  unsigned char **data;
   unsigned int height;
   unsigned int width;
+  unsigned char **data;
   std::string magic_number;
 };
