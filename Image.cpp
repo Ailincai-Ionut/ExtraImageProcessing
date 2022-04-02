@@ -5,6 +5,73 @@
 
 #include "Image.h"
 
+bool isIn(Point p, Rectangle r) {
+  if (p.x > r.x && p.x < r.x + r.width && p.y > r.y && p.y < r.y + r.height)
+    return true;
+  return false;
+}
+
+Point::Point() : x{0}, y{0} {}
+Point::Point(int xcoord, int ycoord) : x{xcoord}, y{ycoord} {}
+
+std::ostream &operator<<(std::ostream &out, const Point &p) {
+  out << "Point(" << p.x << ',' << p.y << ')';
+  return out;
+}
+std::istream &operator>>(std::istream &in, Point &p) {
+  in >> p.x >> p.y;
+  return in;
+}
+
+Rectangle::Rectangle() : x{0}, y{0}, width{0}, height{0} {}
+Rectangle::Rectangle(int xcoord, int ycoord, int w, int h)
+    : x{xcoord}, y{ycoord}, width{w}, height{h} {}
+Rectangle::Rectangle(Point topleft, Point botright)
+    : x{topleft.x}, y{topleft.y}, width{botright.x - topleft.x},
+      height{botright.y - topleft.y} {}
+
+Rectangle Rectangle::operator+(const Point &p) {
+  Rectangle result(x, y, width, height);
+  result.x += p.x;
+  result.y += p.y;
+  return result;
+}
+Rectangle Rectangle::operator-(const Point &p) {
+  Rectangle result(x, y, width, height);
+  result.x -= p.x;
+  result.y -= p.y;
+  return result;
+}
+Rectangle Rectangle::operator&(const Rectangle &r) {
+  int xmin = std::min(x, r.x);
+  int ymin = std::min(y, r.y);
+  int xmax = std::max(x + width, r.x + r.width);
+  int ymax = std::max(y + height, r.y + r.height);
+  if (xmax - xmin > width + r.width || ymax - ymin > height + r.height)
+    return Rectangle();
+  // This is hell
+  int topleftx = std::max(x, r.x);
+  int toplefty = std::max(y, r.y);
+  int botrightx = std::min(x + width, r.x + r.width);
+  int botrighty = std::min(y + height, r.y + r.height);
+  return Rectangle(topleftx, toplefty, botrightx - topleftx,
+                   botrighty - toplefty);
+}
+Rectangle Rectangle::operator|(const Rectangle &r) {
+  //TODO: what the fuck do I do an rectangle union??
+  return Rectangle();
+}
+
+std::ostream &operator<<(std::ostream &out, const Rectangle &r) {
+  out << "Rectangle(" << r.x << ',' << r.y << ',' << r.width << ',' << r.height
+      << ')';
+  return out;
+}
+std::istream &operator>>(std::istream &in, Rectangle &r) {
+  in >> r.x >> r.y >> r.width >> r.height;
+  return in;
+}
+
 Image::Image() {
   width = 0;
   height = 0;

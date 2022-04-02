@@ -16,5 +16,7 @@ int main(int argc, char const *argv[]) {
   ImageConvolution p(kernel);
   p.process(img, processed);
   processed.save("copy.pgm");
+  Rectangle r1(1, 1, 6, 2), r2(3, -1, 2, 6);
+  std::cout << r1.operator&(r2);
   return 0;
 }

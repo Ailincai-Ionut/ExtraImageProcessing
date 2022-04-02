@@ -14,12 +14,30 @@ private:
 
 class Point {
 public:
+  Point();
+  Point(int, int);
+
+  friend std::ostream &operator<<(std::ostream &out, const Point &p);
+  friend std::istream &operator>>(std::istream &in, Point &p);
+
   int x;
   int y;
 };
 
 class Rectangle {
 public:
+  Rectangle();
+  Rectangle(int, int, int, int);
+  Rectangle(Point, Point);
+
+  Rectangle operator+(const Point &p);
+  Rectangle operator-(const Point &p);
+  Rectangle operator&(const Rectangle &r);
+  Rectangle operator|(const Rectangle &r);
+
+  friend std::ostream &operator<<(std::ostream &out, const Rectangle &p);
+  friend std::istream &operator>>(std::istream &in, Rectangle &p);
+
   int x, y, width, height;
 };
 
