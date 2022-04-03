@@ -44,13 +44,13 @@ ImageConvolution::ImageConvolution(const float k[3][3]) {
 void ImageConvolution::process(const Image &src, Image &dst) {
   Image result(src);
   // TODO: there needs to be edge cases....
-  for (unsigned int y = 1; y < result.getHeight() - 1; y++)
-    for (unsigned int x = 1; x < result.getWidth() - 1; x++) {
+  for (int y = 0; y < result.getHeight(); y++)
+    for (int x = 0; x < result.getWidth(); x++) {
       float value = 0;
       // NOTE: implement Matrix...
       for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-          value += kernel[i][j] * (int)src.at(x - j + k, y - i + k);
+          value += kernel[i][j] * (float)src.at(x - j + k, y - i + k);
         }
       if (value > 255)
         value = 255;

@@ -58,7 +58,7 @@ Rectangle Rectangle::operator&(const Rectangle &r) {
                    botrighty - toplefty);
 }
 Rectangle Rectangle::operator|(const Rectangle &r) {
-  //TODO: what the fuck do I do an rectangle union??
+  // TODO: what the fuck do I do an rectangle union??
   return Rectangle();
 }
 
@@ -174,15 +174,18 @@ bool Image::isEmpty() const {
   return false;
 }
 
-unsigned char &Image::at(unsigned int x, unsigned int y) const {
-  if (x >= 0 && x < width && y >= 0 && y < height)
-    return data[y][x];
-  // TODO: what do you do if x or y is incorrect?
+int boundTo(int x, int minimum, int maximum) {
+  if (x >= maximum)
+    return maximum;
+  if (x <= minimum)
+    return minimum;
+  return x;
 }
-unsigned char &Image::at(Point &p) const {
-  if (p.x >= 0 && p.x < width && p.y >= 0 && p.y < height)
-    return data[p.y][p.x];
+
+unsigned char &Image::at(int x, int y) const {
+  return data[boundTo(y, 0, (int)height - 1)][boundTo(x, 0, (int)width - 1)];
 }
+unsigned char &Image::at(Point &p) const { return at(p.x, p.y); }
 
 unsigned char *Image::row(unsigned int y) {
   if (y >= 0 && y < height)

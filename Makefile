@@ -1,6 +1,6 @@
-OBJS	= Image.o ImageProcessing.o  main.o
-SOURCE	= Image.cpp ImageProcessing.cpp
-HEADER	=Image.h ImageProcessing.h
+OBJS	= Image.o ImageProcessing.o DrawModule.o main.o
+SOURCE	= Image.cpp ImageProcessing.cpp DrawModule.cpp
+HEADER	=Image.h ImageProcessing.h DrawModule.h
 OUT	= main
 CC	 = g++
 FLAGS	 = -g -c -Wall
@@ -14,6 +14,9 @@ Image.o:Image.cpp
 
 ImageProcessing.o:ImageProcessing.cpp
 	$(CC) $(FLAGS) ImageProcessing.cpp
+
+DrawModule.o:DrawModule.cpp
+	$(CC) $(FLAGS) DrawModule.cpp
 
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp

@@ -55,7 +55,7 @@ public:
   inline int getWidth() const { return width; };
   inline Size size() const { return Size(height, width); };
 
-  unsigned char &at(unsigned int x, unsigned int y) const;
+  unsigned char &at(int x, int y) const;
   unsigned char &at(Point &p) const;
 
   unsigned char *row(unsigned int y);
